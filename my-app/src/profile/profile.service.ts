@@ -12,7 +12,7 @@ export class ProfileService {
     return this.profiles;
   }
 
-  createProfile(profile) {
+  createProfile(profile: ProfileDto) {
     const user = this.userService.findUser(profile.id);
     if (!user) return 'User Not Found';
     this.profiles.push(profile);

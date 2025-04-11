@@ -1,14 +1,12 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsEmail, IsInt } from 'class-validator';
+import { Transform } from 'class-transformer';
 
-export class User {
-  @IsNumber()
-  id: number;
+export class UserDto {
+  @Transform(({ value }) => value.trim().toLowerCase())
+  @IsEmail()
+  email: string;
 
-  @IsString()
-  name: string;
-
-  //   @IsString()
-  //   @Transform(({ value }) => value.toUpperCase()) // Apply the transformation
-  //   name: string;
-  //
+  @Transform(({ value }) => parseInt(value, 10))
+  @IsInt()
+  age: number;
 }

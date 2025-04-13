@@ -33,24 +33,4 @@ export class UserService {
     if (!user) return 'Not found';
     return user;
   }
-  //Up
-  //Create New User
-  // createUser(user: UserDto) {
-  //   this.users.push(user);
-  //   return user;
-  // }
-  // date User (Put)
-  // updateUser(id: number, updatedUser: UserDto): string | UserDto {
-  //   const userIndex = this.users.findIndex((user) => user.id === id);
-  //   if (userIndex === -1) return 'User not found';
-  //   this.users[userIndex] = updatedUser;
-  //   return updatedUser;
-  // }
-  //Delete User by Id
-  deleteUser(id: number) {
-    const userIndex = this.users.findIndex((user) => user.id === id);
-    if (userIndex === -1) return 'User not Found';
-    this.users.splice(userIndex, 1);
-    return 'User Deleted';
-  }
 }

@@ -13,13 +13,13 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Timeout } from 'src/decorators/Timeout.decorator';
-import { error } from 'console';
 import { UserDto } from './DTO/createUser.dto';
+import { UserDetailsDto } from './DTO/userDetails.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  //GET /user   READ
+
   @Get()
   getAll() {
     return this.userService.getAll();
@@ -47,6 +47,7 @@ export class UserController {
   @Post()
   @UsePipes(
     new ValidationPipe({
+      transform: true,
       exceptionFactory: (errors) => {
         const messages = errors.flatMap((e) =>
           Object.values(e.constraints || {}),
@@ -62,19 +63,25 @@ export class UserController {
     return { message: 'User is Valid!', body };
   }
 
-  //POST /user  CREATE
-  // @Post()
-  // createUser(@Body() user: UserDto) {
-  //   return this.userService.createUser(user);
-  // }
-  //PUT /user/id  UPDATE
-  // @Put(':id')
-  // updateUser(@Param('id') id: string, @Body() user: UserDto) {
-  //   return this.userService.updateUser(+id, user);
-  // }
-  //DELETE /user/id   DELETE
-  @Delete(':id')
-  deleteUser(@Param('id') id: string) {
-    return this.userService.deleteUser(+id);
+  //Q - 7
+  @Post('Q7')
+  @UsePipes(
+    new ValidationPipe({
+      transform: true,
+      exceptionFactory: (errors) => {
+        return {
+          message: 'Validation failed',
+          errors: errors.map((error) => ({
+            field: error.property,
+            code: Object.values(
+              error.constraints || { default: 'Unknown Validation Error' },
+            )[0],
+          })),
+        };
+      },
+    }),
+  )
+  async handleQ7(@Body() dto: UserDetailsDto) {
+    return { message: 'Data processed successfully', dto };
   }
 }

@@ -3,9 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { RateLimiterMiddleware } from './middlewares/rate-limiter/rate-limiter.middleware';
+import { Q8Module } from './q8/q8.module';
+import { EcommerceModule } from './ecommerce/ecommerce.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, Q8Module, EcommerceModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,3 +1,115 @@
+# 📝 WEEKLY ASSIGNMENT - 2
+
+## ✅ Practical Section Overview
+
+---
+
+### 🔹 Q1 - Dynamic Route Handling
+
+**Task:** Create dynamic route `/users/:id/role/:role` to return mock data based on `role`.
+
+- [user.controller.ts](./src/user/user.controller.ts)
+- [user.service.ts](./src/user/user.service.ts)
+
+---
+
+### 🔹 Q2 - Custom Decorator
+
+**Task:** Implement a `@Timeout(delay)` decorator to cancel slow requests.
+
+- [Timeout.decorator.ts](./src/decorators/Timeout.decorator.ts)
+- [user.controller.ts](./src/user/user.controller.ts)
+- [user.service.ts](./src/user/user.service.ts)
+
+---
+
+### 🔹 Q3 - Pipe for Custom Validation
+
+**Task:** Create an `@IsEven()` pipe that rejects odd numbers in `/check-even/:num`.
+
+- [is-even.pipe.ts](./src/pipes/is-even/is-even.pipe.ts)
+- [app.controller.ts](./src/app.controller.ts)
+
+---
+
+### 🔹 Q4 - Middleware for Rate Limiting
+
+**Task:** Limit requests to 3 per minute per IP using custom middleware.
+
+- [rate-limiter.middleware.ts](./src/middlewares/rate-limiter/rate-limiter.middleware.ts)
+- [app.module.ts](./src/app.module.ts)
+
+---
+
+### 🔹 Q5 - Mock E-Commerce Checkout Flow
+
+**Task:** Simulate cart → payment → order with validations and custom exceptions.
+
+- DTOs:
+  - [cart-item.dto.ts](./src/ecommerce/DTO/cart-item.dto.ts)
+  - [order.dto.ts](./src/ecommerce/DTO/order.dto.ts)
+  - [payment.dto.ts](./src/ecommerce/DTO/payment.dto.ts)
+- Custom Exception:
+  - [insufficient-stock.exception.ts](./src/ecommerce/exceptions/insufficient-stock.exception.ts)
+- Controller & Service:
+  - [ecommerce.controller.ts](./src/ecommerce/ecommerce.controller.ts)
+  - [ecommerce.service.ts](./src/ecommerce/ecommerce.service.ts)
+
+---
+
+### 🔹 Q6 - Basic Validation with DTOs
+
+**Task:** Validate user creation DTO with class-validator decorators and return custom error messages.
+
+- [createUser.dto.ts](./src/user/DTO/createUser.dto.ts)
+- [user.controller.ts](./src/user/user.controller.ts)
+
+---
+
+### 🔹 Q7 - Nested Object Validation + Custom PostalCode Validator
+
+**Task:** Validate nested DTOs including `address` and `education`. Use custom validator for postal code.
+
+- DTOs:
+  - [address.dto.ts](./src/user/DTO/address.dto.ts)
+  - [Education.dto.ts](./src/user/DTO/Education.dto.ts)
+  - [userDetails.dto.ts](./src/user/DTO/userDetails.dto.ts)
+- Validator:
+  - [PostalCode.ts](./src/validators/PostalCode.ts)
+- Controller:
+  - [user.controller.ts](./src/user/user.controller.ts)
+
+---
+
+### 🔹 Q8 - Advanced Cross-Field and Header-Based Validation
+
+**Task:** Handle DTO validation with:
+
+- Cross-field checks (`fullTimeDetails` vs `contractorDetails`)
+- Dynamic logic based on `X-Country-Code` header
+- Metadata key pattern validation
+- Hierarchical error structure
+
+- DTOs:
+  - [contractorDetails.dto.ts](./src/q8/DTO/contractorDetails.dto.ts)
+  - [employmentDetails.dto.ts](./src/q8/DTO/employmentDetails.dto.ts)
+  - [fullTimeDetails.dto.ts](./src/q8/DTO/fullTimeDetails.dto.ts)
+  - [metaDataValidator.dto.ts](./src/q8/DTO/metaDataValidator.dto.ts)
+- Validators:
+  - [employeeType.ts](./src/validators/employeeType.ts)
+  - [metaData.ts](./src/validators/metaData.ts)
+- Error Formatter:
+  - [formatError.ts](./src/q8/utils/formatError.ts)
+- Controller & Service:
+  - [q8.controller.ts](./src/q8/q8.controller.ts)
+  - [q8.service.ts](./src/q8/q8.service.ts)
+
+---
+
+> 💡 Tip: All files are internally linked. Click any link to jump straight to the implementation.
+
+====================================================================================
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

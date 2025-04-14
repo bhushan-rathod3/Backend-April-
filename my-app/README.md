@@ -8,8 +8,8 @@
 
 **Task:** Create dynamic route `/users/:id/role/:role` to return mock data based on `role`.
 
-- [user.controller.ts](./src/user/user.controller.ts)
-- [user.service.ts](./src/user/user.service.ts)
+- [user.controller.ts](./src/user/user.controller.ts) — `src/user/user.controller.ts`
+- [user.service.ts](./src/user/user.service.ts) — `src/user/user.service.ts`
 
 ---
 
@@ -17,9 +17,9 @@
 
 **Task:** Implement a `@Timeout(delay)` decorator to cancel slow requests.
 
-- [Timeout.decorator.ts](./src/decorators/Timeout.decorator.ts)
-- [user.controller.ts](./src/user/user.controller.ts)
-- [user.service.ts](./src/user/user.service.ts)
+- [Timeout.decorator.ts](./src/decorators/Timeout.decorator.ts) — `src/decorators/Timeout.decorator.ts`
+- [user.controller.ts](./src/user/user.controller.ts) — `src/user/user.controller.ts`
+- [user.service.ts](./src/user/user.service.ts) — `src/user/user.service.ts`
 
 ---
 
@@ -27,8 +27,8 @@
 
 **Task:** Create an `@IsEven()` pipe that rejects odd numbers in `/check-even/:num`.
 
-- [is-even.pipe.ts](./src/pipes/is-even/is-even.pipe.ts)
-- [app.controller.ts](./src/app.controller.ts)
+- [is-even.pipe.ts](./src/pipes/is-even/is-even.pipe.ts) — `src/pipes/is-even/is-even.pipe.ts`
+- [app.controller.ts](./src/app.controller.ts) — `src/app.controller.ts`
 
 ---
 
@@ -36,8 +36,8 @@
 
 **Task:** Limit requests to 3 per minute per IP using custom middleware.
 
-- [rate-limiter.middleware.ts](./src/middlewares/rate-limiter/rate-limiter.middleware.ts)
-- [app.module.ts](./src/app.module.ts)
+- [rate-limiter.middleware.ts](./src/middlewares/rate-limiter/rate-limiter.middleware.ts) — `src/middlewares/rate-limiter/rate-limiter.middleware.ts`
+- [app.module.ts](./src/app.module.ts) — `src/app.module.ts`
 
 ---
 
@@ -45,39 +45,52 @@
 
 **Task:** Simulate cart → payment → order with validations and custom exceptions.
 
-- DTOs:
-  - [cart-item.dto.ts](./src/ecommerce/DTO/cart-item.dto.ts)
-  - [order.dto.ts](./src/ecommerce/DTO/order.dto.ts)
-  - [payment.dto.ts](./src/ecommerce/DTO/payment.dto.ts)
-- Custom Exception:
-  - [insufficient-stock.exception.ts](./src/ecommerce/exceptions/insufficient-stock.exception.ts)
-- Controller & Service:
-  - [ecommerce.controller.ts](./src/ecommerce/ecommerce.controller.ts)
-  - [ecommerce.service.ts](./src/ecommerce/ecommerce.service.ts)
+`src/ecommerce`
+**DTOs:**
+
+- [cart-item.dto.ts](./src/ecommerce/DTO/cart-item.dto.ts) — `src/ecommerce/DTO/cart-item.dto.ts`
+- [order.dto.ts](./src/ecommerce/DTO/order.dto.ts) — `src/ecommerce/DTO/order.dto.ts`
+- [payment.dto.ts](./src/ecommerce/DTO/payment.dto.ts) — `src/ecommerce/DTO/payment.dto.ts`
+
+**Custom Exception:**
+
+- [insufficient-stock.exception.ts](./src/ecommerce/exceptions/insufficient-stock.exception.ts) — `src/ecommerce/exceptions/insufficient-stock.exception.ts`
+
+**Controller & Service:**
+
+- [ecommerce.controller.ts](./src/ecommerce/ecommerce.controller.ts) — `src/ecommerce/ecommerce.controller.ts`
+- [ecommerce.service.ts](./src/ecommerce/ecommerce.service.ts) — `src/ecommerce/ecommerce.service.ts`
 
 ---
 
 ### 🔹 Q6 - Basic Validation with DTOs
 
-**Task:** Validate user creation DTO with class-validator decorators and return custom error messages.
+**Task:** Validate user creation DTO and return custom error format.
 
-- [createUser.dto.ts](./src/user/DTO/createUser.dto.ts)
-- [user.controller.ts](./src/user/user.controller.ts)
+`src/user`
+
+- [createUser.dto.ts](./src/user/DTO/createUser.dto.ts) — `src/user/DTO/createUser.dto.ts`
+- [user.controller.ts](./src/user/user.controller.ts) — `src/user/user.controller.ts`
 
 ---
 
 ### 🔹 Q7 - Nested Object Validation + Custom PostalCode Validator
 
-**Task:** Validate nested DTOs including `address` and `education`. Use custom validator for postal code.
+**Task:** Validate nested objects (address, education) and apply country-specific regex via custom validator.
 
-- DTOs:
-  - [address.dto.ts](./src/user/DTO/address.dto.ts)
-  - [Education.dto.ts](./src/user/DTO/Education.dto.ts)
-  - [userDetails.dto.ts](./src/user/DTO/userDetails.dto.ts)
-- Validator:
-  - [PostalCode.ts](./src/validators/PostalCode.ts)
-- Controller:
-  - [user.controller.ts](./src/user/user.controller.ts)
+**DTOs:**
+
+- [address.dto.ts](./src/user/DTO/address.dto.ts) — `src/user/DTO/address.dto.ts`
+- [Education.dto.ts](./src/user/DTO/Education.dto.ts) — `src/user/DTO/Education.dto.ts`
+- [userDetails.dto.ts](./src/user/DTO/userDetails.dto.ts) — `src/user/DTO/userDetails.dto.ts`
+
+**Validator:**
+
+- [PostalCode.ts](./src/validators/PostalCode.ts) — `src/validators/PostalCode.ts`
+
+**Controller:**
+
+- [user.controller.ts](./src/user/user.controller.ts) — `src/user/user.controller.ts`
 
 ---
 
@@ -85,28 +98,36 @@
 
 **Task:** Handle DTO validation with:
 
-- Cross-field checks (`fullTimeDetails` vs `contractorDetails`)
-- Dynamic logic based on `X-Country-Code` header
-- Metadata key pattern validation
-- Hierarchical error structure
+- Conditional fields (`fullTimeDetails` vs `contractorDetails`)
+- Locale-based range checks
+- Regex-based key validation
+- Nested error structure
 
-- DTOs:
-  - [contractorDetails.dto.ts](./src/q8/DTO/contractorDetails.dto.ts)
-  - [employmentDetails.dto.ts](./src/q8/DTO/employmentDetails.dto.ts)
-  - [fullTimeDetails.dto.ts](./src/q8/DTO/fullTimeDetails.dto.ts)
-  - [metaDataValidator.dto.ts](./src/q8/DTO/metaDataValidator.dto.ts)
-- Validators:
-  - [employeeType.ts](./src/validators/employeeType.ts)
-  - [metaData.ts](./src/validators/metaData.ts)
-- Error Formatter:
-  - [formatError.ts](./src/q8/utils/formatError.ts)
-- Controller & Service:
-  - [q8.controller.ts](./src/q8/q8.controller.ts)
-  - [q8.service.ts](./src/q8/q8.service.ts)
+`src/q8`
+**DTOs:**
+
+- [contractorDetails.dto.ts](./src/q8/DTO/contractorDetails.dto.ts) — `src/q8/DTO/contractorDetails.dto.ts`
+- [employmentDetails.dto.ts](./src/q8/DTO/employmentDetails.dto.ts) — `src/q8/DTO/employmentDetails.dto.ts`
+- [fullTimeDetails.dto.ts](./src/q8/DTO/fullTimeDetails.dto.ts) — `src/q8/DTO/fullTimeDetails.dto.ts`
+- [metaDataValidator.dto.ts](./src/q8/DTO/metaDataValidator.dto.ts) — `src/q8/DTO/metaDataValidator.dto.ts`
+
+**Validators:**
+
+- [employeeType.ts](./src/validators/employeeType.ts) — `src/validators/employeeType.ts`
+- [metaData.ts](./src/validators/metaData.ts) — `src/validators/metaData.ts`
+
+**Error Formatter:**
+
+- [formatError.ts](./src/q8/utils/formatError.ts) — `src/q8/utils/formatError.ts`
+
+**Controller & Service:**
+
+- [q8.controller.ts](./src/q8/q8.controller.ts) — `src/q8/q8.controller.ts`
+- [q8.service.ts](./src/q8/q8.service.ts) — `src/q8/q8.service.ts`
 
 ---
 
-> 💡 Tip: All files are internally linked. Click any link to jump straight to the implementation.
+> Click on any file name to directly view the source code. File paths are also included for reference or quick file lookup in your editor.
 
 ====================================================================================
 

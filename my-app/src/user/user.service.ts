@@ -13,7 +13,7 @@ export class UserService {
   }
 
   findAll() {
-    return this.userRepo.find();
+    return this.userRepo.find({ relations: ['profile', 'tweets'] });
   }
 
   findOne(id: number) {

@@ -4,11 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProfileModule } from './profile/profile.module';
-import { TweetService } from './tweet/tweet.service';
-import { TweetModule } from './tweet/tweet.module';
-import { Profile } from './profile/profile.entity';
-import { Tweet } from './tweet/tweet.entity';
+import { AuthModule } from './auth/auth.module';
 import { User } from './user/entities/user.entity';
 
 @Module({
@@ -26,14 +22,14 @@ import { User } from './user/entities/user.entity';
         username: config.get('DB_USERNAME'),
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
-        entities: [User, Profile, Tweet],
+        entities: [User],
         autoLoadEntities: true,
         synchronize: true,
       }),
     }),
     UserModule,
-    ProfileModule,
-    TweetModule,
+
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

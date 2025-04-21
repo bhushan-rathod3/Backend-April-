@@ -1,31 +1,24 @@
-import { Profile } from 'src/profile/profile.entity';
-import { Tweet } from 'src/tweet/tweet.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToOne,
-  OneToMany,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Exclude, Expose } from 'class-transformer';
 
-@Entity()
+@Entity('app_user')
 export class User {
+  @Expose()
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Expose()
   @Column()
   username: string;
 
+  @Exclude()
+  @Column()
+  password: string;
+
+  @Expose()
   @Column()
   email: string;
 
-  @OneToOne(() => Profile, (profile) => profile.user, {
-    eager: true,
-    cascade: true,
-  })
-  profile: Profile;
-
-  @OneToMany(() => Tweet, (tweet) => tweet.user, { eager: true, cascade: true })
-  tweets: Tweet[];
+  @Column({ default: true })
+  isActive: boolean;
 }

@@ -32,12 +32,15 @@ export class BookController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.bookService.update(+id, updateBookDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateBookDto: UpdateBookDto,
+  ) {
+    return this.bookService.patch(id, updateBookDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bookService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.bookService.remove(id);
   }
 }

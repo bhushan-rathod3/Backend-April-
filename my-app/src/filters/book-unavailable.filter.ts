@@ -5,8 +5,9 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { BookUnavailableException } from 'src/exceptions/bookUnavailable.exception';
 
-@Catch(Error)
+@Catch(BookUnavailableException)
 export class BookUnavailableFilter implements ExceptionFilter {
   catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();

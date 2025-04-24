@@ -4,6 +4,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThan, Repository } from 'typeorm';
 import { Book } from './entities/book.entity';
+import { BookUnavailableException } from 'src/exceptions/bookUnavailable.exception';
 
 @Injectable()
 export class BookService {
@@ -26,7 +27,7 @@ export class BookService {
 
   async decrementStock(id: number) {
     const book = await this.findById(id);
-    if (!book || book.quantity <= 0) throw new Error('Book not available');
+    if (!book || book.quantity <= 0) throw new BookUnavailableException();
     book.quantity--;
     await this.bookRepo.save(book);
   }
@@ -34,17 +35,24 @@ export class BookService {
   async incrementStock(id: number) {
     const book = await this.findById(id);
     if (!book) {
-      throw new Error(`Book with id ${id} not found`);
+      return new BookUnavailableException();
     }
     book.quantity++;
     await this.bookRepo.save(book);
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
-    return `This action updates a #${id} book`;
+  async patch(id: number, updateBookDto: UpdateBookDto) {
+    const book = await this.findById(id);
+    if (!book) return new BookUnavailableException();
+    const updatedBook = this.bookRepo.merge(book, updateBookDto);
+
+    return this.bookRepo.save(updatedBook);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} book`;
+  async remove(id: number) {
+    const book = await this.findById(id);
+    if (!book) throw new BookUnavailableException();
+
+    return this.bookRepo.remove(book);
   }
 }

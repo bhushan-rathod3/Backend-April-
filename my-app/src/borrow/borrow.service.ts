@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BorrowRecord } from './entities/borrow.entity';
 import { IsNull, LessThan, Repository } from 'typeorm';
@@ -15,14 +15,13 @@ export class BorrowService {
   ) {}
 
   async borrowBook(bookId: number, memberId: number) {
-    await this.bookService.decrementStock(bookId);
-
     const book = await this.bookService.findById(bookId);
     const member = await this.memberService.findById(memberId);
 
     if (!book || !member) {
-      throw new Error('Book or Member not found');
+      throw new HttpException('Book or Member not Found', HttpStatus.NOT_FOUND);
     }
+    await this.bookService.decrementStock(bookId);
 
     const record = this.borrowRepo.create({
       book: { id: book.id },
@@ -41,7 +40,7 @@ export class BorrowService {
     });
 
     if (!record || record.returnDate) {
-      throw new Error('Borrow record not found or already returned');
+      throw new HttpException('Borrow record not Found', HttpStatus.NOT_FOUND);
     }
 
     record.returnDate = new Date();

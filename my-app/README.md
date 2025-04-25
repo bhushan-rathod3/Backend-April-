@@ -4,9 +4,9 @@
 
 ### 🔹 Entities & Relationships
 
-- [book.entity.ts](my-app/src/book/entities/book.entity.ts) — `Book (id, title, ISBN, quantity)`
-- [member.entity.ts](my-app/src/member/entities/member.entity.ts) — `Member (id, name, email, phone)`
-- [borrow.entity.ts](my-app/src/borrow/entities/borrow.entity.ts) — `BorrowRecord (id, bookId, memberId, borrowDate, returnDate)`
+- [book.entity.ts](./src/book/entities/book.entity.ts) — `Book (id, title, ISBN, quantity)`
+- [member.entity.ts](./src/member/entities/member.entity.ts) — `Member (id, name, email, phone)`
+- [borrow.entity.ts](./src/borrow/entities/borrow.entity.ts) — `BorrowRecord (id, bookId, memberId, borrowDate, returnDate)`
 
 > Relation: One `Book` → Many `BorrowRecord`, One `Member` → Many `BorrowRecord`
 
@@ -19,86 +19,6 @@
 ### 🔹 Custom Exception Filter
 
 [Exception Filter for "Book not available"](src/common/filters/book-unavailable.filter.ts)
-
-=====================================================================
-Absolutely — and you're totally right, that was a great touch!  
-We’ll now **recreate that same rich clickable README format** for your **Library Management System**, based on your actual folder structure (from the image you uploaded).
-
----
-
-### ✅ Here's your updated `README.md` with:
-
-- Clean structure
-- Clickable file references
-- Realistic path mapping from your provided folder screenshot
-- Quick summary under each question/feature
-
----
-
-````md
-# 📚 WEEK 3 ASSIGNMENT - PROJECT 1: LIBRARY MANAGEMENT SYSTEM
-
----
-
-## ✅ Practical Overview
-
-### 🔹 1. Add New Book
-
-Implements POST `/books` to create a new book in the database. Quantity must be ≥ 0.
-
-- [`src/book/book.controller.ts`](./src/book/book.controller.ts)
-- [`src/book/book.service.ts`](./src/book/book.service.ts)
-- [`src/book/book.entity.ts`](./src/book/book.entity.ts)
-- [`src/book/dto/create-book.dto.ts`](./src/book/dto/create-book.dto.ts)
-
----
-
-### 🔹 2. List Available Books
-
-GET `/books/available` returns all books where quantity > 0.
-
-- [`src/book/book.controller.ts`](./src/book/book.controller.ts)
-- [`src/book/book.service.ts`](./src/book/book.service.ts)
-
----
-
-### 🔹 3. Register Member
-
-POST `/members` registers a new member with email & phone validation.
-
-- [`src/member/member.controller.ts`](./src/member/member.controller.ts)
-- [`src/member/member.service.ts`](./src/member/member.service.ts)
-- [`src/member/member.entity.ts`](./src/member/member.entity.ts)
-- [`src/member/dto/create-member.dto.ts`](./src/member/dto/create-member.dto.ts)
-
----
-
-### 🔹 4. Borrow a Book
-
-POST `/borrow` allows a member to borrow a book. Decreases book quantity and sets a due date (14 days from borrow).
-
-- [`src/borrow/borrow.controller.ts`](./src/borrow/borrow.controller.ts)
-- [`src/borrow/borrow.service.ts`](./src/borrow/borrow.service.ts)
-- [`src/borrow/borrow.entity.ts`](./src/borrow/borrow.entity.ts)
-- [`src/borrow/dto/borrow-book.dto.ts`](./src/borrow/dto/borrow-book.dto.ts)
-
----
-
-### 🔹 5. Return a Book
-
-POST `/return/:id` returns a book and sets `returnDate`. Increments the stock.
-
-- [`src/borrow/borrow.controller.ts`](./src/borrow/borrow.controller.ts)
-- [`src/borrow/borrow.service.ts`](./src/borrow/borrow.service.ts)
-
----
-
-### 🔹 6. Overdue Books Report
-
-GET `/reports/overdue` fetches overdue books (not returned, past dueDate).
-
-- [`src/reports/reports.controller.ts`](./src/reports/reports.controller.ts)
-- [`src/borrow/borrow.service.ts`](./src/borrow/borrow.service.ts)
 
 ---
 
@@ -114,7 +34,6 @@ Payload:
   "quantity": 5
 }
 ```
-````
 
 ---
 
@@ -278,3 +197,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+```
+
+```

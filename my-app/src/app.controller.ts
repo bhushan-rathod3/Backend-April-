@@ -9,14 +9,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('greet/:name')
-  greet(@Param('name') name: string): string {
-    return this.appService.greet(name);
-  }
-
-  @Get('tech-stack')
-  getTechStack(): string[] {
-    return this.appService.getTechStack();
-  }
 }

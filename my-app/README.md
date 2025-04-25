@@ -28,8 +28,10 @@
 
 ### 1. ➕ Add Book
 
-```POST /books
+POST /books
 Payload:
+
+```
 {
   "title": "The Great Gatsby",
   "ISBN": "9780743273565",
@@ -41,7 +43,8 @@ Payload:
 
 ### 2. 📚 Get Available Books
 
-```GET /books/available
+```
+GET /books/available
 
 ```
 
@@ -49,8 +52,10 @@ Payload:
 
 ### 3. 👤 Register Member
 
-```POST /members
+POST /members
 Payload:
+
+```
 {
   "name": "John Doe",
   "email": "john.doe@example.com",
@@ -62,8 +67,10 @@ Payload:
 
 ### 4. 📖 Borrow a Book
 
-```POST /borrow
+POST /borrow
 Payload:
+
+```
 {
   "bookId": 1,
   "memberId": 1
@@ -74,7 +81,8 @@ Payload:
 
 ### 5. 🔄 Return a Book
 
-```POST /return/1
+```
+POST /return/1
 
 ```
 
@@ -82,7 +90,8 @@ Payload:
 
 ### 6. ⏰ Overdue Books Report
 
-```GET /reports/overdue
+```
+GET /reports/overdue
 
 ```
 

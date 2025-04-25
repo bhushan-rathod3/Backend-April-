@@ -1,3 +1,185 @@
+# 📚 WEEK 3 ASSIGNMENT - PROJECT 1: LIBRARY MANAGEMENT SYSTEM
+
+---
+
+### 🔹 Entities & Relationships
+
+- [book.entity.ts](my-app/src/book/entities/book.entity.ts) — `Book (id, title, ISBN, quantity)`
+- [member.entity.ts](my-app/src/member/entities/member.entity.ts) — `Member (id, name, email, phone)`
+- [borrow.entity.ts](my-app/src/borrow/entities/borrow.entity.ts) — `BorrowRecord (id, bookId, memberId, borrowDate, returnDate)`
+
+> Relation: One `Book` → Many `BorrowRecord`, One `Member` → Many `BorrowRecord`
+
+---
+
+### 🔹 Custom Pipe
+
+[Quantity Validation Pipe](src/common/pipes/quantity-validation.pipe.ts)
+
+### 🔹 Custom Exception Filter
+
+[Exception Filter for "Book not available"](src/common/filters/book-unavailable.filter.ts)
+
+=====================================================================
+Absolutely — and you're totally right, that was a great touch!  
+We’ll now **recreate that same rich clickable README format** for your **Library Management System**, based on your actual folder structure (from the image you uploaded).
+
+---
+
+### ✅ Here's your updated `README.md` with:
+
+- Clean structure
+- Clickable file references
+- Realistic path mapping from your provided folder screenshot
+- Quick summary under each question/feature
+
+---
+
+````md
+# 📚 WEEK 3 ASSIGNMENT - PROJECT 1: LIBRARY MANAGEMENT SYSTEM
+
+---
+
+## ✅ Practical Overview
+
+### 🔹 1. Add New Book
+
+Implements POST `/books` to create a new book in the database. Quantity must be ≥ 0.
+
+- [`src/book/book.controller.ts`](./src/book/book.controller.ts)
+- [`src/book/book.service.ts`](./src/book/book.service.ts)
+- [`src/book/book.entity.ts`](./src/book/book.entity.ts)
+- [`src/book/dto/create-book.dto.ts`](./src/book/dto/create-book.dto.ts)
+
+---
+
+### 🔹 2. List Available Books
+
+GET `/books/available` returns all books where quantity > 0.
+
+- [`src/book/book.controller.ts`](./src/book/book.controller.ts)
+- [`src/book/book.service.ts`](./src/book/book.service.ts)
+
+---
+
+### 🔹 3. Register Member
+
+POST `/members` registers a new member with email & phone validation.
+
+- [`src/member/member.controller.ts`](./src/member/member.controller.ts)
+- [`src/member/member.service.ts`](./src/member/member.service.ts)
+- [`src/member/member.entity.ts`](./src/member/member.entity.ts)
+- [`src/member/dto/create-member.dto.ts`](./src/member/dto/create-member.dto.ts)
+
+---
+
+### 🔹 4. Borrow a Book
+
+POST `/borrow` allows a member to borrow a book. Decreases book quantity and sets a due date (14 days from borrow).
+
+- [`src/borrow/borrow.controller.ts`](./src/borrow/borrow.controller.ts)
+- [`src/borrow/borrow.service.ts`](./src/borrow/borrow.service.ts)
+- [`src/borrow/borrow.entity.ts`](./src/borrow/borrow.entity.ts)
+- [`src/borrow/dto/borrow-book.dto.ts`](./src/borrow/dto/borrow-book.dto.ts)
+
+---
+
+### 🔹 5. Return a Book
+
+POST `/return/:id` returns a book and sets `returnDate`. Increments the stock.
+
+- [`src/borrow/borrow.controller.ts`](./src/borrow/borrow.controller.ts)
+- [`src/borrow/borrow.service.ts`](./src/borrow/borrow.service.ts)
+
+---
+
+### 🔹 6. Overdue Books Report
+
+GET `/reports/overdue` fetches overdue books (not returned, past dueDate).
+
+- [`src/reports/reports.controller.ts`](./src/reports/reports.controller.ts)
+- [`src/borrow/borrow.service.ts`](./src/borrow/borrow.service.ts)
+
+---
+
+## 🔗 API Testing Guide
+
+### 1. ➕ Add Book
+
+```POST /books
+Payload:
+{
+  "title": "The Great Gatsby",
+  "ISBN": "9780743273565",
+  "quantity": 5
+}
+```
+````
+
+---
+
+### 2. 📚 Get Available Books
+
+```GET /books/available
+
+```
+
+---
+
+### 3. 👤 Register Member
+
+```POST /members
+Payload:
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "phone": "+1234567890"
+}
+```
+
+---
+
+### 4. 📖 Borrow a Book
+
+```POST /borrow
+Payload:
+{
+  "bookId": 1,
+  "memberId": 1
+}
+```
+
+---
+
+### 5. 🔄 Return a Book
+
+```POST /return/1
+
+```
+
+---
+
+### 6. ⏰ Overdue Books Report
+
+```GET /reports/overdue
+
+```
+
+---
+
+### 7. Extra Routes
+
+```
+GET /books
+GET /books/:id
+GET /members
+GET /members/:id
+GET /borrow-records
+GET /borrow-records/:id
+```
+
+======================================================================
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

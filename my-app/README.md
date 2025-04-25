@@ -1,3 +1,143 @@
+# ✅ WEEK 3 ASSIGNMENT - PROJECT 2: TASK MANAGER WITH RBAC
+
+---
+
+## Entities & DTOs
+
+- [User Entity](./src/users/entities/user.entity.ts)
+- [Task Entity](my-app/src/tasks/entities/task.entity.ts)
+- [create-task.dto.ts](my-app/src/tasks/dto/create-task.dto.ts)
+- [update-task.dto.ts](my-app/src/tasks/dto/update-task.dto.ts)
+
+---
+
+## Guards
+
+- [AuthGuard](my-app/src/common/guards/auth.guard.ts)
+- [RolesGuard](my-app/src/common/guards/role.guard.ts)
+
+---
+
+## Middleware
+
+- [Request-Logger](my-app/src/common/middlewares/request-logger.middleware.ts)
+
+---
+
+## 🧪 Custom Pipe
+
+- [Status Validation](my-app/src/common/pipes/status-validation.pipe.ts)
+
+---
+
+## Seeder for inserting mock users
+
+- [users.seed.ts](my-app/src/users/users.seed.ts)
+- [user.module.ts](src/users/users.module.ts)
+
+---
+
+## 🔗 API Testing Guide
+
+### 1. 🔐 Login
+
+POST /login
+Authorization: Basic Auth -> enter valid username and password for accessing endpoints
+
+Payload:
+
+```
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+---
+
+### 2. 📝 Create Task
+
+POST /tasks
+Authorization: Basic Auth
+
+Payload:
+
+```
+{
+  "title": "Complete NestJS Assignment",
+  "description": "Implement Library Management System and Task Manager",
+  "status": "OPEN"
+}
+```
+
+---
+
+### 3. 📋 List All Tasks
+
+```
+GET /tasks
+Authorization: Basic Auth
+```
+
+---
+
+### 4. 🙋 List Current User's Tasks
+
+```
+GET /tasks/mine
+Authorization: Basic Auth
+```
+
+---
+
+### 5. 🔍 Get Task by ID
+
+```
+GET /tasks/:id
+Authorization: Basic Auth
+```
+
+---
+
+### 6. ✏️ Update Task
+
+PATCH /tasks/:id
+Authorization: Basic Auth
+
+Payload:
+
+```
+{
+  "status": "DONE"
+}
+```
+
+---
+
+### 7. ❌ Delete Task
+
+```
+DELETE /tasks/:id
+Authorization: Basic Auth
+```
+
+Note: Only ADMIN can delete
+
+---
+
+### 8. 🔎 Search Tasks (Bonus)
+
+```
+GET /tasks?search=keyword
+Authorization: Basic Auth
+```
+
+---
+
+> Click on any file name to directly view the source code. File paths are also included for quick lookup in your editor.
+
+=================================================================================
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

@@ -4,7 +4,7 @@ import { BorrowRecord } from './entities/borrow.entity';
 import { IsNull, LessThan, Repository } from 'typeorm';
 import { BookService } from '../book/book.service';
 import { MemberService } from '../member/member.service';
-import { BookNotAvailableException } from 'src/filters/book-unavailable.filter';
+import { BookNotAvailableException } from 'src/common/filters/book-unavailable.filter';
 import { BorrowBookDto } from './dto/create-borrow.dto';
 
 @Injectable()

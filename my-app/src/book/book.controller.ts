@@ -12,7 +12,7 @@ import {
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { QuantityValidationPipe } from 'src/pipes/quantity-validation.pipe';
+import { QuantityValidationPipe } from 'src/common/pipes/quantity-validation.pipe';
 
 @Controller('book')
 export class BookController {

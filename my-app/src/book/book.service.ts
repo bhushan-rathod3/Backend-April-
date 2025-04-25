@@ -4,7 +4,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThan, Repository } from 'typeorm';
 import { Book } from './entities/book.entity';
-import { BookNotAvailableException } from 'src/filters/book-unavailable.filter';
+import { BookNotAvailableException } from 'src/common/filters/book-unavailable.filter';
 
 @Injectable()
 export class BookService {

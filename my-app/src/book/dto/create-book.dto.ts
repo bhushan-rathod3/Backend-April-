@@ -1,4 +1,3 @@
-// src/books/dto/create-book.dto.ts
 import { IsNotEmpty, IsString, IsNumber, Min } from 'class-validator';
 
 export class CreateBookDto {

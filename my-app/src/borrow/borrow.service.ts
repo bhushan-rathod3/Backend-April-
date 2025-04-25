@@ -4,6 +4,8 @@ import { BorrowRecord } from './entities/borrow.entity';
 import { IsNull, LessThan, Repository } from 'typeorm';
 import { BookService } from '../book/book.service';
 import { MemberService } from '../member/member.service';
+import { BookNotAvailableException } from 'src/filters/book-unavailable.filter';
+import { BorrowBookDto } from './dto/create-borrow.dto';
 
 @Injectable()
 export class BorrowService {
@@ -14,21 +16,42 @@ export class BorrowService {
     private memberService: MemberService,
   ) {}
 
-  async borrowBook(bookId: number, memberId: number) {
-    const book = await this.bookService.findById(bookId);
-    const member = await this.memberService.findById(memberId);
+  async findAll() {
+    return await this.borrowRepo.find({
+      relations: ['book', 'member'],
+    });
+  }
 
-    if (!book || !member) {
-      throw new HttpException('Book or Member not Found', HttpStatus.NOT_FOUND);
+  async findOne(id: number) {
+    return await this.borrowRepo.findOne({
+      where: { id },
+      relations: ['book', 'member'],
+    });
+  }
+
+  async borrowBook(borrowBookDto: BorrowBookDto) {
+    const book = await this.bookService.findById(borrowBookDto.bookId);
+    if (!book) {
+      throw new BookNotAvailableException('Book not found');
     }
-    await this.bookService.decrementStock(bookId);
+
+    if (book.quantity <= 0) {
+      throw new BookNotAvailableException('Book not available for borrowing');
+    }
+
+    const member = await this.memberService.findById(borrowBookDto.memberId);
+
+    if (!member) {
+      throw new HttpException('Member not Found', HttpStatus.NOT_FOUND);
+    }
 
     const record = this.borrowRepo.create({
-      book: { id: book.id },
-      member: { id: member.id },
+      ...borrowBookDto,
       borrowDate: new Date(),
       dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // +14 days
     });
+
+    await this.bookService.decrementStock(borrowBookDto.bookId);
 
     return this.borrowRepo.save(record);
   }
@@ -39,8 +62,12 @@ export class BorrowService {
       relations: ['book'],
     });
 
-    if (!record || record.returnDate) {
+    if (!record) {
       throw new HttpException('Borrow record not Found', HttpStatus.NOT_FOUND);
+    }
+
+    if (record.returnDate) {
+      throw new HttpException('Book already returned', HttpStatus.NOT_FOUND);
     }
 
     record.returnDate = new Date();

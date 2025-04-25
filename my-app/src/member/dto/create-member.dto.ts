@@ -1,12 +1,22 @@
-import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsPhoneNumber,
+  IsString,
+  Matches,
+} from 'class-validator';
 
 export class CreateMemberDto {
   @IsNotEmpty()
+  @IsString()
   name: string;
 
+  @IsNotEmpty()
   @IsEmail()
   email: string;
 
-  @IsPhoneNumber(undefined)
+  @IsNotEmpty()
+  @IsString()
+  @Matches(/^\+?[0-9]{10,15}$/, { message: 'Phone number is not valid' })
   phone: string;
 }

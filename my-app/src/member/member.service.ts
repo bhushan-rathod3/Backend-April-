@@ -12,24 +12,25 @@ export class MemberService {
     private readonly memberRepo: Repository<Member>,
   ) {}
 
-  register(createMemberDto: CreateMemberDto) {
+  async register(createMemberDto: CreateMemberDto) {
     const member = this.memberRepo.create(createMemberDto);
-    return this.memberRepo.save(member);
+    return await this.memberRepo.save(member);
   }
 
-  findAll() {
-    return `This action returns all member`;
+  async findAll() {
+    return await this.memberRepo.find();
   }
 
   async findById(id: number) {
-    return this.memberRepo.findOne({ where: { id } });
+    return await this.memberRepo.findOne({ where: { id } });
   }
 
-  update(id: number, updateMemberDto: UpdateMemberDto) {
-    return `This action updates a #${id} member`;
+  async update(id: number, updateMemberDto: UpdateMemberDto) {
+    await this.memberRepo.update(id, updateMemberDto);
+    return await this.findById(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} member`;
+  async remove(id: number) {
+    await this.memberRepo.delete(id);
   }
 }

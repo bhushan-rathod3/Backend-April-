@@ -14,14 +14,24 @@ import { BorrowBookDto } from './dto/create-borrow.dto';
 export class BorrowController {
   constructor(private readonly borrowService: BorrowService) {}
 
-  @Post('borrow')
-  borrow(@Body() dto: BorrowBookDto) {
-    return this.borrowService.borrowBook(dto.bookId, dto.memberId);
+  @Post()
+  borrow(@Body() borrowBookDto: BorrowBookDto) {
+    return this.borrowService.borrowBook(borrowBookDto);
   }
 
   @Post('return/:id')
   returnBook(@Param('id') id: string) {
-    return this.borrowService.returnBook(Number(id));
+    return this.borrowService.returnBook(+id);
+  }
+
+  @Get('borrow-records')
+  findAll() {
+    return this.borrowService.findAll();
+  }
+
+  @Get('borrow-records/:id')
+  findOne(@Param('id') id: string) {
+    return this.borrowService.findOne(+id);
   }
 
   @Get('overdue')

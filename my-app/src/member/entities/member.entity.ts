@@ -1,4 +1,4 @@
-import { BorrowRecord } from 'src/borrow/entities/borrow.entity';
+import { BorrowRecord } from '../../borrow/entities/borrow.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
@@ -9,12 +9,12 @@ export class Member {
   @Column()
   name: string;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column()
   phone: string;
 
-  @OneToMany(() => BorrowRecord, (record) => record.member)
+  @OneToMany(() => BorrowRecord, (borrowRecord) => borrowRecord.member)
   borrowRecords: BorrowRecord[];
 }

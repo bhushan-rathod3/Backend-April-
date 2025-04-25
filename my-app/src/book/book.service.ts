@@ -4,7 +4,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThan, Repository } from 'typeorm';
 import { Book } from './entities/book.entity';
-import { BookUnavailableException } from 'src/exceptions/bookUnavailable.exception';
+import { BookNotAvailableException } from 'src/filters/book-unavailable.filter';
 
 @Injectable()
 export class BookService {
@@ -12,13 +12,17 @@ export class BookService {
     @InjectRepository(Book) private readonly bookRepo: Repository<Book>,
   ) {}
 
-  create(createBookDto: CreateBookDto) {
+  async create(createBookDto: CreateBookDto) {
     const book = this.bookRepo.create(createBookDto);
-    return this.bookRepo.save(book);
+    return await this.bookRepo.save(book);
+  }
+
+  async findAll(): Promise<Book[]> {
+    return await this.bookRepo.find();
   }
 
   async findAvailable() {
-    return this.bookRepo.find({ where: { quantity: MoreThan(0) } });
+    return await this.bookRepo.find({ where: { quantity: MoreThan(0) } });
   }
 
   async findById(id: number) {
@@ -27,7 +31,8 @@ export class BookService {
 
   async decrementStock(id: number) {
     const book = await this.findById(id);
-    if (!book || book.quantity <= 0) throw new BookUnavailableException();
+    if (!book || book.quantity <= 0)
+      throw new BookNotAvailableException('Book not available for borrowing');
     book.quantity--;
     await this.bookRepo.save(book);
   }
@@ -35,7 +40,7 @@ export class BookService {
   async incrementStock(id: number) {
     const book = await this.findById(id);
     if (!book) {
-      return new BookUnavailableException();
+      return new BookNotAvailableException('Book Not Found');
     }
     book.quantity++;
     await this.bookRepo.save(book);
@@ -43,7 +48,7 @@ export class BookService {
 
   async patch(id: number, updateBookDto: UpdateBookDto) {
     const book = await this.findById(id);
-    if (!book) return new BookUnavailableException();
+    if (!book) return new BookNotAvailableException('Book Not Found');
     const updatedBook = this.bookRepo.merge(book, updateBookDto);
 
     return this.bookRepo.save(updatedBook);
@@ -51,8 +56,8 @@ export class BookService {
 
   async remove(id: number) {
     const book = await this.findById(id);
-    if (!book) throw new BookUnavailableException();
+    if (!book) throw new BookNotAvailableException('Book Not Found');
 
-    return this.bookRepo.remove(book);
+    return await this.bookRepo.remove(book);
   }
 }

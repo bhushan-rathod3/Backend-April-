@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Member } from '../../member/entities/member.entity';
 import { Book } from 'src/book/entities/book.entity';
 
@@ -7,18 +13,26 @@ export class BorrowRecord {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Book, (book) => book.borrowRecords)
-  book: Book;
+  @Column()
+  bookId: number;
 
-  @ManyToOne(() => Member, (member) => member.borrowRecords)
-  member: Member;
+  @Column()
+  memberId: number;
 
   @Column()
   borrowDate: Date;
 
+  @Column({ nullable: true })
+  returnDate: Date;
+
   @Column()
   dueDate: Date;
 
-  @Column({ nullable: true })
-  returnDate: Date;
+  @ManyToOne(() => Book, (book) => book.borrowRecords)
+  @JoinColumn({ name: 'bookId' })
+  book: Book;
+
+  @ManyToOne(() => Member, (member) => member.borrowRecords)
+  @JoinColumn({ name: 'memberId' })
+  member: Member;
 }

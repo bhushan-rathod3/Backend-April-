@@ -2,19 +2,29 @@ import {
   ExceptionFilter,
   Catch,
   ArgumentsHost,
+  HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { Response } from 'express';
-import { BookUnavailableException } from 'src/exceptions/bookUnavailable.exception';
+import { Request, Response } from 'express';
 
-@Catch(BookUnavailableException)
-export class BookUnavailableFilter implements ExceptionFilter {
-  catch(exception: Error, host: ArgumentsHost) {
+export class BookNotAvailableException extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.BAD_REQUEST);
+  }
+}
+
+@Catch(BookNotAvailableException)
+export class BookNotAvailableFilter implements ExceptionFilter {
+  catch(exception: BookNotAvailableException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+    const status = exception.getStatus();
 
-    response.status(HttpStatus.BAD_REQUEST).json({
-      statusCode: HttpStatus.BAD_REQUEST,
+    response.status(status).json({
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: request.url,
       message: exception.message,
     });
   }

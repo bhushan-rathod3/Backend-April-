@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { QuantityValidationPipe } from 'src/pipes/quantity-validation.pipe';
 
 @Controller('book')
 export class BookController {
@@ -23,6 +25,11 @@ export class BookController {
 
   @Get()
   findAll() {
+    return this.bookService.findAll();
+  }
+
+  @Get('available')
+  findAvailable() {
     return this.bookService.findAvailable();
   }
 
@@ -32,6 +39,7 @@ export class BookController {
   }
 
   @Patch(':id')
+  @UsePipes(QuantityValidationPipe)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateBookDto: UpdateBookDto,

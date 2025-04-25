@@ -5,12 +5,4 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
-
-  greet(name: string): string {
-    return `Hello ${name}`;
-  }
-
-  getTechStack(): string[] {
-    return ['Node.js', 'NestJS', 'TypeScript', 'PostgreSQL'];
-  }
 }
